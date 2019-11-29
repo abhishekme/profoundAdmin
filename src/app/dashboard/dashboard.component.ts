@@ -25,11 +25,20 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
 
     this.dashboardCountCalls  = [
-      this._apiServ.getUserCount(),
-      this._apiServ.getAwardCount(),
-      this._apiServ.getEmploymentCount(),
-      this._apiServ.getPersonCount()
+      this._apiServ.getDashboardCount('user'),
+      this._apiServ.getDashboardCount('award'),
+      this._apiServ.getDashboardCount('employ'),
+      this._apiServ.getDashboardCount('person')
     ];
+    this._notif_service.info(
+      this._constant.database_notification_label,
+      'Loading Data...',
+      {
+        timeOut: 3000,
+        showProgressBar: true,
+        pauseOnHover: false,
+        maxLength: 50
+      });
     this.subscriptionHandler.push(
       forkJoin(this.dashboardCountCalls)
       .subscribe(
@@ -37,10 +46,10 @@ export class DashboardComponent implements OnInit {
             let result: any;
             result = data;
             if(result != undefined && result.length > 0){
-                this.userTotal  = result[0].record.COUNT_RECORD;
-                this.awardTotal  = result[1].record.COUNT_RECORD;
+                this.userTotal        = result[0].record.COUNT_RECORD;
+                this.awardTotal       = result[1].record.COUNT_RECORD;
                 this.employmentTotal  = result[2].record.COUNT_RECORD;
-                this.personTotal  = result[3].record.COUNT_RECORD;
+                this.personTotal      = result[3].record.COUNT_RECORD;
             }
              console.log('Dashboard Count: ', data);
           })

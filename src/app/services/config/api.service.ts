@@ -80,52 +80,48 @@ export class ApiService {
     * token:    Login Auth
     * 
     *******************************************************/
-    getUserCount(): Observable<any>{
-        let apiURL          = this.API_BASE_URL + 'total-dashboard-count?type=user';        
+    getDashboardCount(type: string): Observable<any>{
+        let apiURL          = this.API_BASE_URL + 'total-dashboard-count?type='+type;        
         let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
-        console.log('Get token: ', getTokenData);
+            //console.log('Get token: ', getTokenData);
         let userId          = window.atob(getTokenData[1]);
         let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
-
-        //headers.set("token", "ggg");
-        //headers.append('authorization',getTokenData[0]);
-        //headers.append('userid',userId);
-        console.log('Send headers: ', headers.get('authorization'),  " :: ", headers.get('userid'));
+            //console.log('Send headers: ', headers.get('authorization'),  " :: ", headers.get('userid'));
         return this.http.get(apiURL, {headers}).pipe(
             (data => data),
             catchError(this.handleError)
         );
     }
-    getAwardCount(): Observable<any>{
-        let apiURL          = this.API_BASE_URL + 'total-dashboard-count?type=award';        
-        let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
-        let userId          = window.atob(getTokenData[1]);
-        let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
-        return this.http.get(apiURL, {headers}).pipe(
-            (data => data),
-            catchError(this.handleError)
-        );
-    }
-    getEmploymentCount(): Observable<any>{
-        let apiURL          = this.API_BASE_URL + 'total-dashboard-count?type=employ';        
-        let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
-        let userId          = window.atob(getTokenData[1]);
-        let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
-        return this.http.get(apiURL, {headers}).pipe(
-            (data => data),
-            catchError(this.handleError)
-        );
-    }
-    getPersonCount(): Observable<any>{
-        let apiURL          = this.API_BASE_URL + 'total-dashboard-count?type=person';        
-        let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
-        let userId          = window.atob(getTokenData[1]);
-        let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
-        return this.http.get(apiURL, {headers}).pipe(
-            (data => data),
-            catchError(this.handleError)
-        );
-    }
+    // getAwardCount(): Observable<any>{
+    //     let apiURL          = this.API_BASE_URL + 'total-dashboard-count?type=award';        
+    //     let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
+    //     let userId          = window.atob(getTokenData[1]);
+    //     let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
+    //     return this.http.get(apiURL, {headers}).pipe(
+    //         (data => data),
+    //         catchError(this.handleError)
+    //     );
+    // }
+    // getEmploymentCount(): Observable<any>{
+    //     let apiURL          = this.API_BASE_URL + 'total-dashboard-count?type=employ';        
+    //     let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
+    //     let userId          = window.atob(getTokenData[1]);
+    //     let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
+    //     return this.http.get(apiURL, {headers}).pipe(
+    //         (data => data),
+    //         catchError(this.handleError)
+    //     );
+    // }
+    // getPersonCount(): Observable<any>{
+    //     let apiURL          = this.API_BASE_URL + 'total-dashboard-count?type=person';        
+    //     let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
+    //     let userId          = window.atob(getTokenData[1]);
+    //     let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
+    //     return this.http.get(apiURL, {headers}).pipe(
+    //         (data => data),
+    //         catchError(this.handleError)
+    //     );
+    // }
     /************************************************************
     *
     * Admin Login

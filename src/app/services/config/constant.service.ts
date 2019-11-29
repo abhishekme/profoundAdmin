@@ -175,11 +175,13 @@ export class ConstantService {
         dashboard_title_label:                          string  =       "Dashboard";        
         usermanage_icon_label:                          string  =       "person";
         usermanage_title_label:                         string  =       "User Management";
+        bannermanage_title_label:                       string  =       "Banner Management";
         account_title_label:                            string  =       "Account";
         logout_title_label:                             string  =       "Logout";
 
         //Error Label
         database_error_label:                           string  =       "Database Error";
+        database_notification_label:                    string  =       "Please wait";
 
         //Validation Message
         required_field_validation:                      string  =       "Please enter valid Email and Password";
