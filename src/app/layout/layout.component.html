@@ -1,0 +1,32 @@
+
+<!-- <div *ngIf="userToken != ''">
+    <span *ngIf="loading">Loding...</span>
+    <div class="wrapper ">
+        <app-sidebar></app-sidebar>
+        <div class="main-panel">
+            <app-header></app-header>
+            <div class="content">
+                <router-outlet></router-outlet>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div> -->
+
+<!-- AUTH SECTION -->
+<div *ngIf="userToken != ''">
+    
+    <div class="wrapper">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+<!-- AUTH SECTION -->
+<!-- ELSE AUTH SECTION -->
+<div *ngIf="userToken === '' || undefined"> 
+    <div class="wrapper">
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+<!-- ELSE AUTH SECTION -->
