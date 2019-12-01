@@ -25,24 +25,23 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                  {{userRecord|json}}
                   <table class="table table-bordered">
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Task</th>
-                      <th>Progress</th>
-                      <th style="width: 40px">Label</th>
+                      <th>Email</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th style="width: 40px">Username</th>
                     </tr>
-                    <tr>
-                      <td>1.</td>
-                      <td>Update software</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-red">55%</span></td>
+                    <tr *ngFor="let item of userRecord;let i = index">
+                      <td>{{i+1}}</td>
+                      <td>{{item.email}}</td>
+                      <td>{{item.first_name}}</td>
+                      <td>{{item.last_name}}</td>
+                      <td>{{item.username}}</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                       <td>2.</td>
                       <td>Clean database</td>
                       <td>
@@ -71,12 +70,12 @@
                         </div>
                       </td>
                       <td><span class="badge bg-green">90%</span></td>
-                    </tr>
+                    </tr> -->
                   </table>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                  <nav aria-label="Page navigation example">
+                  <!-- <nav aria-label="Page navigation example">
                     <ul class="pagination pg-blue">
                       <li class="page-item"><a class="page-link">Previous</a></li>
                       <li class="page-item"><a class="page-link">1</a></li>
@@ -100,7 +99,7 @@
                         <a class="page-link">Next</a>
                       </li>
                     </ul>
-                  </nav>
+                  </nav> -->
                 </div>
               </div>
             </div>

@@ -9,7 +9,7 @@ import { NotificationsService } from 'angular2-notifications';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   providers: [ApiService, ConstantService]
-})
+}) 
 export class DashboardComponent implements OnInit {
   private subscriptionHandler: Subscription[] = [];
   private userTotal: number = 0;
@@ -30,6 +30,15 @@ export class DashboardComponent implements OnInit {
       this._apiServ.getDashboardCount('employ'),
       this._apiServ.getDashboardCount('person')
     ];
+    // this._apiServ.getUser()
+    //   .subscribe(
+    //       data => {
+    //         let result: any;
+    //         //this.modelUser = data;
+            
+    //          console.log('User List: ', data);
+    //       })
+    
     this._notif_service.info(
       this._constant.database_notification_label,
       'Loading Data...',

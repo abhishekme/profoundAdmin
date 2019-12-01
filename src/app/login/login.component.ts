@@ -119,7 +119,7 @@ export class LoginComponent implements OnInit {
     else{
       console.log('Login needed...');
       this._notif_service.error(
-        this._constant.database_error_label,
+        this._constant.validation_error_label,
         this._constant.required_field_validation,
         {
           timeOut: 2000,

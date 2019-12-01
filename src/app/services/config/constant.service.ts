@@ -181,6 +181,7 @@ export class ConstantService {
 
         //Error Label
         database_error_label:                           string  =       "Database Error";
+        validation_error_label:                         string  =       "Validation Error";
         database_notification_label:                    string  =       "Please wait";
 
         //Validation Message
