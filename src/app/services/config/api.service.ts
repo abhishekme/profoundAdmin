@@ -5,13 +5,6 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, tap, map } from 'rxjs/operators';
 import { UserModel } from "../../models/userModel";
-//import'rxjs/add/operator/map';
-// import {
-//     HttpInterceptor,
-//     HttpRequest,
-//     HttpEvent,
-// } from '@angular/common/http';
-
 
 @Injectable()
 export class ApiService {
@@ -25,7 +18,6 @@ export class ApiService {
     }
     //General declaration
     private API_BASE_URL:string     =  environment.SERVER_BASE_URL + '/api/admin/';
-
 
     /*******************
     *
@@ -100,7 +92,6 @@ export class ApiService {
     * 
     *******************************************************/
    public getUser():Observable<any>{
-       console.log('user....');
     let apiURL          = this.API_BASE_URL + 'get-user-list';        
     let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
     let userId          = window.atob(getTokenData[1]);
@@ -109,7 +100,39 @@ export class ApiService {
         (data => data),
         catchError(this.handleError)
     );
-}
+    }
+
+    /*****************************************************
+    *
+    * Get Person Record
+    * @param:   
+    * token:    Login Auth
+    * 
+    *******************************************************/
+   public getPersonList(postBody: any):Observable<any>{
+    console.log('person list....');
+    let apiURL          = this.API_BASE_URL + 'get-person-list';        
+    let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
+    let userId          = window.atob(getTokenData[1]);
+    let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
+        return this.http.post(apiURL, postBody, {headers}).pipe(
+            (data => data),
+            catchError(this.handleError)
+        );
+    }
+
+    public getPersonTotal():Observable<any>{
+        console.log('person count....');
+        let apiURL          = this.API_BASE_URL + 'get-person-total';        
+        let getTokenData    = (window.atob(this.getLoginToken())).toString().split('|');
+        let userId          = window.atob(getTokenData[1]);
+        let headers         = new HttpHeaders({"authorization" : getTokenData[0], "userid": userId, 'Access-Control-Allow-Origin': '*','Content-Type':'application/json'});
+            return this.http.get(apiURL, {headers}).pipe(
+                (data => data),
+                catchError(this.handleError)
+            );
+    }
+
     /************************************************************
     *
     * Admin Login

@@ -1,116 +1,134 @@
 
 
-  <!-- INCLUDE SIDEBAR -->
-  <app-sidebar></app-sidebar>
-  <!-- INCLUDE SIDEBAR -->
+<!-- INCLUDE SIDEBAR -->
+<app-sidebar></app-sidebar>
+<!-- INCLUDE SIDEBAR -->
 <div class="main-panel">
-    <!-- INCLUDE HEADER -->
-      <app-header></app-header>
-    <!-- INCLUDE HEADER -->
+<!-- INCLUDE HEADER -->
+  <app-header></app-header>
+<!-- INCLUDE HEADER -->
 
-    <!-- INCLUDE PAGE AREA -->
-    <div class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header card-header-primary">
-              <h4 class="card-title">User Management</h4>
-              <p class="card-category">Listing</p>
+<!-- INCLUDE PAGE AREA -->
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">User Management</h4>
+          <p class="card-category">Listing</p>
+        </div>
+
+        <div class="card-body">
+          <ng4-loading-spinner> </ng4-loading-spinner>
+          <simple-notifications></simple-notifications>
+          <div class="box">
+            <div class="row">
+                <div class="col-md-6 box-header with-border text-left">
+                    <h3 class="box-title">Search</h3>
+                    <table class="table table-bordered ">
+                      <tr>
+                        <td>
+                          <div class="form-group">
+                            <input class="form-control" type="text" [(ngModel)]="searchUser.key" name="skey" placeholder="{{_constant.placeholder_user_search_key}}">
+                          </div>
+                        </td>
+                        <td>
+                          <button class="btn btn-primary button-area" (click)="searchPerson(searchUser.key)"><i class="fa fa-search" aria-hidden="true"></i></button>
+                          <button class="btn btn-primary button-area" (click)="clearSearchPerson()"><i class="fa fa-repeat" aria-hidden="true"></i></button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div class="col-md-6 text-right">
+                      <button class="btn btn-primary button-area">
+                        <a [routerLink]='["/admin/Users/Add"]' [ngStyle]="{'text-decoration':'none'}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+                      </button>
+                  </div>
             </div>
-
-            <div class="card-body">
-              <div class="box">
-                <div class="box-header with-border">
-                  <h3 class="box-title"></h3>
+              
+            <!-- /.box-header -->
+            <div class="box-body table-responsive">
+              <!-- {{userRecord|json}} -->
+              <table class="table table-bordered ">
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Email</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th style="width: 40px">Username</th>
+                  <th style="width: 30px">Action</th>
+                </tr>
+                <ng-container *ngIf="userRecord.length > 0">
+                <tr *ngFor="let item of userRecord;let i = index">
+                  <td>{{item.id}}</td>
+                  <td>{{item.email}}</td>
+                  <td>{{item.firstName}}</td>
+                  <td>{{item.lastName}}</td>
+                  <td>{{ (item.cognitoUserName) ? item.cognitoUserName : 'Null' }}</td>
+                  <td>
+                    <a [routerLink]="['/admin/Users/Edit', item.id]">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  </td>
+                </tr>
+                </ng-container>
+                <ng-container *ngIf="userRecord.length == 0">
+                  <tr>
+                    <td colspan="5">No Records.</td>
+                  </tr>
+                </ng-container>
+              </table>
+            </div>
+            <!-- /.box-body -->
+            <!-- <div class="box-footer clearfix" *ngIf="userRecord.length > 0">
+                <div class="text-left">
+                  <span class="text">Page</span> {{pageNum}} &nbsp; of {{totalPages}}
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                  {{userRecord|json}}
-                  <table class="table table-bordered">
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Email</th>
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th style="width: 40px">Username</th>
-                    </tr>
-                    <tr *ngFor="let item of userRecord;let i = index">
-                      <td>{{i+1}}</td>
-                      <td>{{item.email}}</td>
-                      <td>{{item.first_name}}</td>
-                      <td>{{item.last_name}}</td>
-                      <td>{{item.username}}</td>
-                    </tr>
-                    <!-- <tr>
-                      <td>2.</td>
-                      <td>Clean database</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-yellow">70%</span></td>
-                    </tr>
-                    <tr>
-                      <td>3.</td>
-                      <td>Cron job running</td>
-                      <td>
-                        <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-light-blue">30%</span></td>
-                    </tr>
-                    <tr>
-                      <td>4.</td>
-                      <td>Fix and squish bugs</td>
-                      <td>
-                        <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-green">90%</span></td>
-                    </tr> -->
-                  </table>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                  <!-- <nav aria-label="Page navigation example">
-                    <ul class="pagination pg-blue">
-                      <li class="page-item"><a class="page-link">Previous</a></li>
-                      <li class="page-item"><a class="page-link">1</a></li>
-                      <li class="page-item"><a class="page-link">2</a></li>
-                      <li class="page-item"><a class="page-link">3</a></li>
-                      <li class="page-item"><a class="page-link">Next</a></li>
-                    </ul>
-                  </nav>
-                  <hr>
+                <div class="text-right box-footer clearfix">
                   <nav aria-label="Page navigation example">
                     <ul class="pagination pg-blue">
-                      <li class="page-item disabled">
-                        <a class="page-link" tabindex="-1">Previous</a>
-                      </li>
-                      <li class="page-item"><a class="page-link">1</a></li>
-                      <li class="page-item active">
-                        <a class="page-link">2 <span class="sr-only">(current)</span></a>
-                      </li>
-                      <li class="page-item"><a class="page-link">3</a></li>
-                      <li class="page-item">
-                        <a class="page-link">Next</a>
-                      </li>
+                    <li class="page-item" [ngClass]="{'disabled' : pageNum <= 1}">
+                        <button type="button" [disabled]="pageNum <= 1" (click)="getListData((pageNum-1),limitNum)" class="btn btn-primary button-area">Previous</button>
+                    </li>
+                    <li>&nbsp;</li>
+                    <li class="page-item" [ngClass]="{'disabled' : pageNum >= (totalPages)}">
+                        <button type="button" [disabled]="pageNum >= (totalPages)" (click)="getListData((pageNum+1),limitNum)" class="btn btn-primary button-area">Next</button>
+                    </li>
                     </ul>
-                  </nav> -->
+                  </nav>
                 </div>
-              </div>
+            </div> -->
+            <div class="text-left">
+              <span class="text">Page</span> {{pageNum}}&nbsp; of {{totalPages}}
             </div>
-
+            <div class="box-footer clearfix" *ngIf="userRecord.length > 0">
+                <hr>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination pg-blue">
+                    <li class="page-item" [ngClass]="{'disabled' : pageNum <= 1}">
+                      <button type="button" [disabled]="pageNum <= 1" (click)="getListData((pageNum-1),limitNum)" class="btn btn-primary button-area"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                    </li>
+                    <li *ngFor="let page of pagedGItems" class="page-item" [ngClass]="{'active': pageNum == page.val}">
+                      <a class="page-link" href="javascript:void(0)" (click)="getListData(page.val,limitNum)" *ngIf="page.val != '...'">{{page.val}}</a>
+                      <a class="page-link" href="javascript:void(0)" *ngIf="page.val == '...'">{{page.val}}</a>
+                    </li>
+                    <li class="page-item" [ngClass]="{'disabled' : pageNum >= (totalPages)}">                          
+                      <button type="button" [disabled]="pageNum >= (totalPages)" (click)="getListData((pageNum+1),limitNum)" class="btn btn-primary button-area"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                    </li>
+                  </ul>
+                </nav>
+            </div>
+            <!-- <a class="page-link" tabindex="-1" (click)="getListData((pageNum-1),limitNum)">Previous</a> -->
+            <!-- <a class="page-link" (click)="getListData((pageNum+1),limitNum)">Next</a> -->
           </div>
         </div>
       </div>
     </div>
-    <!-- INCLUDE PAGE AREA -->
+  </div>
+</div>
+<!-- INCLUDE PAGE AREA -->
 
-      <!-- INCLUDE FOOTER AREA -->
-      <app-footer></app-footer>
-      <!-- INCLUDE FOOTER AREA -->
+<!-- INCLUDE FOOTER AREA -->
+<app-footer></app-footer>
+<!-- INCLUDE FOOTER AREA -->
 </div>

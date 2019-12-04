@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from '../services/config/api.service';
 
-import {
-  Event,
-  NavigationCancel,
-  NavigationEnd,
-  NavigationError,
-  NavigationStart,
-  Router
-} from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -19,7 +11,7 @@ import {
 export class LayoutComponent implements OnInit {
   public userToken: string;
   public loading:boolean = false;
-  constructor(private apiServ: ApiService, public router: Router) {
+  constructor(private apiServ: ApiService) {
 
 
     

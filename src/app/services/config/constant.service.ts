@@ -166,6 +166,7 @@ export class ConstantService {
         //Static Declarations
         //Login Form
         placeholder_email:                              string  =       "Email";
+        placeholder_user_search_key:                    string  =       "Search by email";
         placeholder_password:                           string  =       "Password";
         login_heading_label:                            string  =       "Login";
 
@@ -186,6 +187,9 @@ export class ConstantService {
 
         //Validation Message
         required_field_validation:                      string  =       "Please enter valid Email and Password";
+        valid_email:                                    string  =       "Please enter valid Email";
+
+        LIMIT_ADMIN:                                    number  =       100;
 
 
 }

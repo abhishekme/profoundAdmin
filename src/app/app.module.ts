@@ -21,7 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-//import { MaterialModule } from './material';
+import { UserAddComponent } from './users/user-add/user-add.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
+//import { NgHttpLoaderModule } from 'ng-http-loader';
 
 @NgModule({
   declarations: [
@@ -32,12 +34,14 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     FooterComponent,
     DashboardComponent,
     UsersComponent,
-    LoginComponent
+    LoginComponent,
+    UserAddComponent,
+    UserEditComponent
   ],
   imports: [
-    BrowserModule,
-    Ng4LoadingSpinnerModule.forRoot(),
+    BrowserModule,    
     HttpClientModule,
+    Ng4LoadingSpinnerModule.forRoot(),
     FormsModule,
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
@@ -45,7 +49,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     RouterModule.forRoot(routes)
   ],
   providers: [AuthCheckService,AuthGuard, HttpClientModule],
-  exports: [],
+  exports: [LayoutComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
