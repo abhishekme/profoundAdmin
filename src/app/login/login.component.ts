@@ -80,8 +80,8 @@ export class LoginComponent implements OnInit {
           err => {
             if(err.record != undefined && !err.status){
               let errorMessage: string    = (err.message != '') ? err.message : '';
-              this.validationErrorShow = false;
-              //this.toastr.errorToastr(errorMessage, 'Database Error');              
+              this.validationErrorShow    = false;
+              //this.toastr.errorToastr(errorMessage, 'Database Error');
               this._notif_service.error(
                 this._constant.database_error_label,
                 errorMessage,
@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
                 },2100);
             }
           },
-          () => {
+        () => {
             console.log('HTTP request completed.')}
         ));
 
@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
       console.log('Login needed...');
       this._notif_service.error(
         this._constant.validation_error_label,
-        this._constant.required_field_validation,
+        this._constant.required_field_email_password_validation,
         {
           timeOut: 2000,
           showProgressBar: true,

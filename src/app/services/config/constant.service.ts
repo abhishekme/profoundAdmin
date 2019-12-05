@@ -164,11 +164,27 @@ export class ConstantService {
 
 
         //Static Declarations
-        //Login Form
+
+        //General Text Label
+        adminCopyrightText:                             string  =       "Profound Impact 2019-2020";
+        addLabel:                                       string  =       "Add";
+        editLabel:                                      string  =       "Update";
+        requiredLabel:                                  string  =       "This is required";
+        validEmailLabel:                                string  =       "Enter valid email";
+        enterRequiredField:                             string  =       "Please enter required field(s) properly";
+        onlyNameInput:                                  string  =       "Please enter only small letters";
+        onlyUsernameInput:                              string  =       "Please enter only small letters, Number and underscore";
+        passwordStrengthLabel:                          string  =       "Password should contain Minimum 8 character,One Number,One Special Character,One Capital and One Small letter";
+
+        //Login Section
         placeholder_email:                              string  =       "Email";
         placeholder_user_search_key:                    string  =       "Search by email";
         placeholder_password:                           string  =       "Password";
         login_heading_label:                            string  =       "Login";
+        submit_button_label:                            string  =       "Submit";
+
+        //Person Section
+        user_management_heading:                        string  =       "User Management"
 
         //Menu Label
         admin_heading:                                  string  =       "Profound Admin";
@@ -186,10 +202,88 @@ export class ConstantService {
         database_notification_label:                    string  =       "Please wait";
 
         //Validation Message
-        required_field_validation:                      string  =       "Please enter valid Email and Password";
+        required_field_email_password_validation:       string  =       "Please enter valid Email and Password";
         valid_email:                                    string  =       "Please enter valid Email";
-
         LIMIT_ADMIN:                                    number  =       100;
 
+        passwordStrength:                               any     = {};
 
+        /*********************************************************************************************
+         * 
+         * @Utility Functions
+         * 
+         * 
+         * 
+         * 
+         * 
+         **********************************************************************************************/
+        checkValidPassword(passwordType: any, modelInput: any){        
+        this.passwordStrength['pcLengthValue'] = 0;  this.passwordStrength['pcUpperValue'] = 0;
+        this.passwordStrength['pcLowerValue'] = 0;   this.passwordStrength['pcNumberValue'] = 0;
+        this.passwordStrength['pcSpecialValue'] = 0;
+
+        let lengthCharacters      = /^([a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]){9,}$/;
+        let upperCaseCharacters   = /[A-Z]+/g;
+        let lowerCaseCharacters   = /[a-z]+/g;
+        let numberCharacters      = /[0-9]+/g;
+        let specialCharacters     = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        if(lengthCharacters.test(modelInput)) {
+                this.passwordStrength['pcLengthValue'] = 1;
+        }
+        if(upperCaseCharacters.test(modelInput)) {
+                this.passwordStrength['pcUpperValue'] = 1;
+        }
+        if(lowerCaseCharacters.test(modelInput)) {
+                this.passwordStrength['pcLowerValue'] = 1;
+        }
+        if(numberCharacters.test(modelInput)) {
+                this.passwordStrength['pcNumberValue'] = 1;
+        }
+        if(specialCharacters.test(modelInput)) {
+                this.passwordStrength['pcSpecialValue'] = 1;
+        }
+        var checkedType = true;  
+        var typeObject  = passwordType;
+        for (const [key, value] of Object.entries(typeObject)) {
+                //console.log('Check value: ', value, " :: ", key);
+                if(!value && key != undefined){
+                        return false;
+                }
+        }
+        return checkedType;
+        }
+
+        /*********************************************
+         * @checkInput
+         * @param:
+         * inputParamas:       Type of validation        
+         * modelInput:         model data value
+         * Master Check Input function 
+         * 
+         *********************************************/
+        checkInput(inputParamas: string, modelInput: any){
+        var resultValidInput = false;        
+
+        switch(inputParamas){
+                case 'email':
+                resultValidInput = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/).test(modelInput);                
+                break;
+                case 'password':
+                //Valid password should contain At least One Uppercase, One lowercase, One Number, One special character and minimum 8 chracter.
+                if(this.checkValidPassword(this.passwordStrength, modelInput)){
+                resultValidInput = true;
+                }
+                //console.log('password valid: ', resultValidInput);
+                break;
+                case 'onlyName':
+                resultValidInput = new RegExp(/^[a-z]+$/).test(modelInput);
+                break;
+                
+                case 'blank':
+                resultValidInput = (modelInput == '') ? false : true;
+                break;                
+        }
+        console.log(inputParamas, " :: ",resultValidInput);
+        return (resultValidInput) ? true : false;
+        }
 }

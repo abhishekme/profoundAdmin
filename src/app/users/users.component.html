@@ -40,9 +40,11 @@
                     </table>
                   </div>
                   <div class="col-md-6 text-right">
+                    <a [routerLink]='["/admin/Users/Add"]' class="add-link">
                       <button class="btn btn-primary button-area">
-                        <a [routerLink]='["/admin/Users/Add"]' [ngStyle]="{'text-decoration':'none'}"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                       </button>
+                    </a>
                   </div>
             </div>
               
@@ -66,13 +68,13 @@
                   <td>{{item.lastName}}</td>
                   <td>{{ (item.cognitoUserName) ? item.cognitoUserName : 'Null' }}</td>
                   <td>
-                    <a [routerLink]="['/admin/Users/Edit', item.id]">
+                    <a [routerLink]="['/admin/Users/Edit/',item.id]">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </td>
                 </tr>
                 </ng-container>
-                <ng-container *ngIf="userRecord.length == 0">
+                <ng-container *ngIf="userRecord.length == 0">  
                   <tr>
                     <td colspan="5">No Records.</td>
                   </tr>

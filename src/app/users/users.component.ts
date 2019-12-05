@@ -10,7 +10,7 @@ import { UserModel } from "../models/userModel";
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css'],
+  styleUrls: ['./users.component.scss'],
   providers:[ApiService, ConstantService, NotificationsService, PagerService, Ng4LoadingSpinnerService]
 })
 export class UsersComponent implements OnInit {

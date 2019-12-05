@@ -12,12 +12,102 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header card-header-primary">
-          <h4 class="card-title">User Management</h4>
-          <p class="card-category">Add</p>
+          <div class="row">
+              <div class="col-md-11">
+                <h4 class="card-title">{{_constant.user_management_heading}}</h4>
+                <p class="card-category">{{_constant.addLabel}}</p>
+              </div>
+              <div class="col-md-1">
+                  <a [routerLink]="['/admin/Users']" class="back-mangmnt">
+                  <i class="fa fa-arrow-left fa-3x" aria-hidden="true"></i></a>
+              </div>
+          </div>
         </div>
         <div class="card-body">
+          <!-- {{_constant.placeholder_email}} -->
           <simple-notifications></simple-notifications>
-          Add User Form
+          <form (ngSubmit)="submitUser()" class="person-add">
+              <div class="row">                
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input class="form-control" type="text" [(ngModel)]="userModel.firstName" name="firstName" placeholder="First Name">
+                      <small class="text-muted" [hidden]="_constant.checkInput('onlyName',userModel.firstName)">{{_constant.requiredLabel}} [{{_constant.onlyNameInput}}]</small>
+                    </div>
+                </div>                 
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <input class="form-control" type="text" [(ngModel)]="userModel.lastName" name="lastName" placeholder="Last Name">
+                        <small class="text-muted" [hidden]="_constant.checkInput('onlyName',userModel.lastName)">{{_constant.requiredLabel}} [{{_constant.onlyNameInput}}]</small>
+                    </div>
+                </div>
+              </div>
+              <div class="row">                
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <input class="form-control" type="text" [(ngModel)]="userModel.email" name="email" placeholder="{{_constant.placeholder_email}}">
+                      <small class="text-muted" [hidden]="_constant.checkInput('email',userModel.email)">{{_constant.requiredLabel}} [{{_constant.validEmailLabel}}]</small>
+                    </div>
+                  </div>                 
+                    <div class="col-md-6">
+                      <div class="form-group">
+                          <input class="form-control" type="text" [(ngModel)]="userModel.cognitoUserName" name="cognitoUserName" placeholder="Username">
+                          <small class="text-muted has-error" [hidden]="_constant.checkInput('blank',userModel.cognitoUserName)">{{_constant.requiredLabel}}</small>
+                      </div>
+                  </div>
+                </div>
+                <div class="row"> 
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input class="form-control" type="text" [(ngModel)]="userModel.speciality" name="speciality" placeholder="Speciality">
+                        <small class="text-muted" [hidden]="_constant.checkInput('blank',userModel.speciality)">{{_constant.requiredLabel}}</small>
+                      </div>
+                    </div>                 
+                      <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea class="form-control" [(ngModel)]="userModel.bio" name="bio" placeholder="Bio information"></textarea>
+                            <small class="text-muted" [hidden]="_constant.checkInput('blank',userModel.bio)">{{_constant.requiredLabel}}</small>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row"> 
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <input class="form-control" type="text" [(ngModel)]="userModel.password" name="password" placeholder="Password">
+                          <small class="text-muted" [hidden]="_constant.checkInput('password',userModel.password)">{{_constant.requiredLabel}} {{_constant.passwordStrengthLabel}}</small>
+                        </div>
+                      </div>                 
+                        <div class="col-md-6">
+                          <div class="form-group">
+                          </div>
+                      </div>
+                  </div>
+                  {{userModel | json}}
+                  <div class="row">                
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <button class="btn btn-primary button-area" [disabled]="!validationErrorShow">
+                                  {{_constant.submit_button_label}}
+                              </button>
+                          </div>
+                      </div>                 
+                        <div class="col-md-6">
+                          <div class="form-group">                              
+                          </div>
+                      </div>
+                    </div>
+                    <!-- <div class="row">                
+                        <div class="col-md-6">
+                            <div class="form-group">
+                              <input class="form-control" type="text" name="email" placeholder="{{_constant.placeholder_email}}">
+                            </div>
+                        </div>                 
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <input class="form-control" type="text" name="email" placeholder="Username">
+                              </div>
+                          </div>
+                    </div> -->
+          </form>
         </div>
       </div>
     </div>

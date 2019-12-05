@@ -10,15 +10,15 @@ import { AppComponent } from './app.component';
 
 //Declare Admin Routes
 export const routes: Routes = [
-{ 
+{
 path: 'admin',
 component: AppComponent,
     children: [
             { path: 'Login', component: LoginComponent, canActivate: [AuthCheckService] },
             { path: 'Dashboard', component: DashboardComponent, canActivate: [AuthGuard], pathMatch:'full'},
-            { path: 'Users', component: UsersComponent, canActivate: [AuthGuard],
-            
-            },
+            { path: 'Users', component: UsersComponent, canActivate: [AuthGuard]},
+                { path: 'Users/Add', component: UserAddComponent, canActivate: [AuthGuard]},
+                { path: 'Users/Edit/:id', component: UserEditComponent, canActivate: [AuthGuard]},
             { path: '**', redirectTo: 'Login',pathMatch:'full' }
     ],
 },
